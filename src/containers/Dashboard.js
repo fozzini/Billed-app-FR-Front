@@ -9,7 +9,6 @@ export const filteredBills = (data, status) => {
   return (data && data.length) ?
     data.filter(bill => {
       let selectCondition
-
       // in jest environment
       if (typeof jest !== 'undefined') {
         selectCondition = (bill.status === status)
@@ -95,7 +94,8 @@ export default class {
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter ++
-    } else {
+    } 
+    else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
@@ -143,11 +143,12 @@ export default class {
         .html("")
       this.counter ++
     }
-
+// ici pb
     bills.forEach(bill => {
+      $(`#open-bill${bill.id}`).unbind("click");
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
-
+    
     return bills
 
   }
