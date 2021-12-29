@@ -21,7 +21,7 @@ export default class NewBill {
     if (!file.name.match(/.(jpg|jpeg|png)$/i)){
       alert('Format non pris en charge! Veuillez uploader un document au format jpg, jpeg ou png');
       file = null
-      location.reload();
+      // location.reload();
     }
     else {
     const filePath = e.target.value.split(/\\/g)
@@ -40,16 +40,15 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
-        console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
-      }).catch(error => console.error(error))
+      })
+      .catch(error => console.error(error))
     }
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
