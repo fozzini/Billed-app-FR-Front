@@ -1,10 +1,11 @@
 import { screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
-import { ROUTES } from "../constants/routes"
-import VerticalLayout from "../views/VerticalLayout"
+import { ROUTES, ROUTES_PATH } from "../constants/routes"
+// import VerticalLayout from "../views/VerticalLayout"
 import Bills from "../containers/Bills.js"
 import userEvent from "@testing-library/user-event"
+import Router from "../app/Router"
 
 
 describe("Given I am connected as an employee", () => {
@@ -27,13 +28,15 @@ describe("Given I am connected as an employee", () => {
   
   describe("When I am on Bills Page", () => {
     test("Then bill icon in vertical layout should be highlighted", () => {
-      // Mock local Storage on window to set user connected as Employee
+     
       
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
-      const html = VerticalLayout(120)
-
-      document.body.innerHTML = html
+      const pathname = ROUTES_PATH["Bills"] 
+      Object.defineProperty(window, "location", { value: { hash: pathname } })
       
+      document.body.innerHTML = `<div id="root"></div>`
+      Router()
+
       expect(screen.getByTestId("icon-window").classList.contains("active-icon"))
     })
 
