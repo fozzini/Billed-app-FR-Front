@@ -15,6 +15,7 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+  
   storeHandler = (fileName, formData) => {
     if (this.store) {
     this.store
@@ -33,7 +34,8 @@ export default class NewBill {
       .catch(error => console.error(error))
     }
   }
-  handleChangeFile = e => {
+
+  handleChangeFile = (e) => {
     e.preventDefault()
     let file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     if (!file.name.match(/.(jpg|jpeg|png)$/i)){
@@ -50,6 +52,7 @@ export default class NewBill {
     this.storeHandler(fileName, formData)
     }
   }
+
   handleSubmit = e => {
     e.preventDefault()
     const email = JSON.parse(localStorage.getItem("user")).email

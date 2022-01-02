@@ -51,6 +51,7 @@ describe("Given I am connected as an employee", () => {
     // test container bill "nouvelle note de frais"
     describe("When I click on New Bill btn", () => {
       test("It should renders new bill page", () => {
+        
         window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
   
         const html = BillsUI({ data: []})

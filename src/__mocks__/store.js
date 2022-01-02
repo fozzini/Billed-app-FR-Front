@@ -1,4 +1,31 @@
+import store from "./store";
+
 export default {
+  post: async (newBill) => {
+    const getStore = await store.get()
+
+    return Promise.resolve({
+      data: [
+        ...getStore.data,
+        {
+          id: newBill.id,
+          status: newBill.status,
+          pct: newBill.pct,
+          amount: newBill.amount,
+          email: newBill.email,
+          name: newBill.name,
+          vat: newBill.vat,
+          fileName: newBill.fileName,
+          date: newBill.date,
+          commentAdmin: newBill.commentAdmin,
+          commentary: newBill.commentary,
+          type: newBill.type,
+          fileUrl: newBill.fileUrl,
+        }
+      ]
+    })
+  },
+  
   get: () => {
     return Promise.resolve({
       data: [{
