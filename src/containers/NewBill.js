@@ -15,22 +15,8 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
-  handleChangeFile = e => {
-    e.preventDefault()
-    let file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    if (!file.name.match(/.(jpg|jpeg|png)$/i)){
-      alert('Format non pris en charge! Veuillez uploader un document au format jpg, jpeg ou png');
-      file = null
-      // location.reload();
-    }
-    else {
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]
-    const formData = new FormData()
-    const email = JSON.parse(localStorage.getItem("user")).email
-    formData.append('file', file)
-    formData.append('email', email)
-
+  storeHandler = (fileName, formData) => {
+    if (this.store) {
     this.store
       .bills()
       .create({
@@ -45,6 +31,23 @@ export default class NewBill {
         this.fileName = fileName
       })
       .catch(error => console.error(error))
+    }
+  }
+  handleChangeFile = e => {
+    e.preventDefault()
+    let file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    if (!file.name.match(/.(jpg|jpeg|png)$/i)){
+      alert('Format non pris en charge! Veuillez uploader un document au format jpg, jpeg ou png');
+      file = null
+    }
+    else {
+    const filePath = e.target.value.split(/\\/g)
+    const fileName = filePath[filePath.length-1]
+    const formData = new FormData()
+    const email = JSON.parse(localStorage.getItem("user")).email
+    formData.append('file', file)
+    formData.append('email', email)
+    this.storeHandler(fileName, formData)
     }
   }
   handleSubmit = e => {

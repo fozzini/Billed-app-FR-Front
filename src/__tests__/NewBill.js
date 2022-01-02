@@ -61,7 +61,6 @@ describe("Given I am connected as an employee", () => {
         fireEvent.change(fileInput, { target: { files: [new File(['proof.jpg'], 'proof.jpg', {type: 'proof/jpg'})]}})
 
         expect(handleChangeFile).toHaveBeenCalled()
-        
         expect(fileInput.files[0].name).toBe('proof.jpg') 
       })
     })
