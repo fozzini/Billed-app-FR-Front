@@ -40,7 +40,6 @@ export default class NewBill {
     let file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     if (!file.name.match(/.(jpg|jpeg|png)$/i)){
       alert('Format non pris en charge! Veuillez uploader un document au format jpg, jpeg ou png');
-      file = null
     }
     else {
     const filePath = e.target.value.split(/\\/g)

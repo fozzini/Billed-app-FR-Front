@@ -1,6 +1,7 @@
 import store from "./store";
 
 export default {
+  
   post: async (newBill) => {
     const getStore = await store.get()
 
