@@ -28,8 +28,8 @@ export default class {
   }
 
   // not need to cover this function by tests
-  /* istanbul ignore text */
-  
+
+  /* istanbul ignore next */
   getBills = () => {
     if (this.store) {
       return this.store
