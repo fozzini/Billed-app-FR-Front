@@ -4,7 +4,7 @@ export default {
   
   post: async (newBill) => {
     const getStore = await store.get()
-
+    
     return Promise.resolve({
       data: [
         ...getStore.data,
