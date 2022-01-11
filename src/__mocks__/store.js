@@ -18,7 +18,7 @@ export const newBill = {
   "commentAdmin": "ok",
   "email": "a@a",
   "pct": 20
-  }
+}
 
 export default {
   
