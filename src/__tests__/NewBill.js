@@ -5,6 +5,7 @@ import { ROUTES } from "../constants/routes"
 import BillsUI from "../views/BillsUI.js"
 import store from "../__mocks__/store"
 import newBill from "../__mocks__/store"
+import { func } from "../__mocks__/store"
 
 
 // simulate windows alert with a jest spy
@@ -122,23 +123,13 @@ describe("Given I am a user connected as employee", () => {
       expect(getSpy).toHaveBeenCalledTimes(1)
       expect(bills.data.length).toBe(5)
     })
+
     test("fetches bills from an API and fails with 404 message error", async () => {
-      store.post.mockImplementationOnce(() =>
-        Promise.reject(new Error("Erreur 404"))
-      )
-      const html = BillsUI({ error: "Erreur 404" })
-      document.body.innerHTML = html
-      const message = await screen.getByText(/Erreur 404/)
-      expect(message).toBeTruthy()
-    })
+        await expect(func('Erreur 404')).rejects.toThrowError('Erreur 404')
+      })
+   
     test("fetches messages from an API and fails with 500 message error", async () => {
-      store.post.mockImplementationOnce(() =>
-        Promise.reject(new Error("Erreur 404"))
-      )
-      const html = BillsUI({ error: "Erreur 500" })
-      document.body.innerHTML = html
-      const message = await screen.getByText(/Erreur 500/)
-      expect(message).toBeTruthy()
+      await expect(func('Erreur 500')).rejects.toThrowError('Erreur 500')
     })
   })
 })

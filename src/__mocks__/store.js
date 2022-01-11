@@ -1,5 +1,9 @@
 import store from "./store";
 
+export const func = async (error) => {
+  throw new Error(error)
+} 
+
 export const newBill = {
   "id": "33qAXb5fIm2zOKkLzPrt",
   "vat": "70",
