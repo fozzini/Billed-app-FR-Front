@@ -45,7 +45,7 @@ describe("Given I am connected as an employee", () => {
       const antiChrono = (a, b) => b.date - a.date 
       // changement de calcul
       const datesSorted = [...dates].sort(antiChrono)
-      
+      console.log(datesSorted)
       expect(dates).toEqual(datesSorted)
     })
     // test container bill "nouvelle note de frais"
