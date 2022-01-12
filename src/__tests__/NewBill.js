@@ -2,7 +2,7 @@ import { screen, fireEvent } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import { ROUTES } from "../constants/routes"
-import BillsUI from "../views/BillsUI.js"
+
 import store from "../__mocks__/store"
 import newBill from "../__mocks__/store"
 import { func } from "../__mocks__/store"
@@ -124,11 +124,11 @@ describe("Given I am a user connected as employee", () => {
       expect(bills.data.length).toBe(5)
     })
 
-    test("fetches bills from an API and fails with 404 message error", async () => {
-        await expect(func('Erreur 404')).rejects.toThrowError('Erreur 404')
+    test("Should throw 404 message error", async () => {
+      await expect(func('Erreur 404')).rejects.toThrowError('Erreur 404')
       })
    
-    test("fetches messages from an API and fails with 500 message error", async () => {
+    test("Should throw 500 message error", async () => {
       await expect(func('Erreur 500')).rejects.toThrowError('Erreur 500')
     })
   })
