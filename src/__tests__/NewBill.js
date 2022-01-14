@@ -123,7 +123,7 @@ describe("Given I am a user connected as employee", () => {
       expect(getSpy).toHaveBeenCalledTimes(1)
       expect(bills.data.length).toBe(5)
     })
-    test("To send data to an API and fails with 404 message error", async () => {
+    test("To call post API and fails with 404 message error", async () => {
       // given
       store.post.mockImplementationOnce(() => Promise.reject(new Error("Erreur 404")))
 
@@ -136,7 +136,7 @@ describe("Given I am a user connected as employee", () => {
       expect(store.post).toHaveBeenCalled()
       expect(message).toBeTruthy()
     })
-    test("To send data to an API and fails with 500 message error", async () => {
+    test("To call post API and fails with 500 message error", async () => {
       // given
       store.post.mockImplementationOnce(() => Promise.reject(new Error("Erreur 500")))
 

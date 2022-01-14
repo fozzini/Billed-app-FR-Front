@@ -3,5 +3,6 @@
     "activityBar.background": "#173403",
     "titleBar.activeBackground": "#214904",
     "titleBar.activeForeground": "#F1FEE8"
-  }
+  },
+  "search-online.search-engine": "Npm"
 }
