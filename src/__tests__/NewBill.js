@@ -2,10 +2,9 @@ import { screen, fireEvent } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import { ROUTES } from "../constants/routes"
-
 import store from "../__mocks__/store"
 import newBill from "../__mocks__/store"
-import { func } from "../__mocks__/store"
+
 
 
 // simulate windows alert with a jest spy
@@ -16,6 +15,7 @@ describe("Given I am connected as an employee", () => {
     test("Then it should render a New Bill form", () => {
       const html = NewBillUI()
       document.body.innerHTML = html
+
       const newBillForm = screen.getByTestId('form-new-bill')
       expect(newBillForm).toBeTruthy()
     })
@@ -58,7 +58,7 @@ describe("Given I am connected as an employee", () => {
         const html = NewBillUI()
         document.body.innerHTML = html
         const newBills = new NewBill({document, onNavigate, localStorage: window.localStorage})
-  
+
         const handleChangeFile = jest.fn((e) => newBills.handleChangeFile)
         const fileInput = screen.getByTestId('file')
 
@@ -117,19 +117,37 @@ describe("Given I am connected as an employee", () => {
 // test d'intégration POST
 describe("Given I am a user connected as employee", () => {
   describe("When I send a new Bill", () => {
-    test("fetches bills from mock API POST", async () => {
+    test("Send data to mock API POST", async () => {
       const getSpy = jest.spyOn(store, "post")
       const bills = await store.post(newBill)
       expect(getSpy).toHaveBeenCalledTimes(1)
       expect(bills.data.length).toBe(5)
     })
+    test("To send data to an API and fails with 404 message error", async () => {
+      // given
+      store.post.mockImplementationOnce(() => Promise.reject(new Error("Erreur 404")))
 
-    test("Should throw 404 message error", async () => {
-      await expect(func('Erreur 404')).rejects.toThrowError('Erreur 404')
-      })
-   
-    test("Should throw 500 message error", async () => {
-      await expect(func('Erreur 500')).rejects.toThrowError('Erreur 500')
+      // when
+      const html = NewBillUI( "Erreur 404" )
+      document.body.innerHTML = html
+      const message = await screen.getByText(/Erreur 404/)
+
+      // Then
+      expect(store.post).toHaveBeenCalled()
+      expect(message).toBeTruthy()
+    })
+    test("To send data to an API and fails with 500 message error", async () => {
+      // given
+      store.post.mockImplementationOnce(() => Promise.reject(new Error("Erreur 500")))
+
+      // when
+      const html = NewBillUI( "Erreur 500" )
+      document.body.innerHTML = html
+      const message = await screen.getByText(/Erreur 500/)
+
+      // Then
+      expect(store.post).toHaveBeenCalled()
+      expect(message).toBeTruthy()
     })
   })
 })
